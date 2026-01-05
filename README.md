@@ -1,4 +1,4 @@
-# **📘 README.md — versiunea finală, frumoasă, gata de copiat**
+# **📘 README.md**
 
 # 📚 Structuri de Date și Algoritmi – Laboratoare (UTCN)
 
