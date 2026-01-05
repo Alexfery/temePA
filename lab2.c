@@ -3,8 +3,8 @@
 
 typedef struct nodetype
 {
-int key; 
-struct nodetype *next; 
+int key;
+struct nodetype *next;
 } NodeT;
 
 
@@ -118,39 +118,47 @@ void delete_key(NodeT** first, NodeT** last, int givenKey) {
 
 void destroy_list(NodeT** first, NodeT** last) {
     NodeT* current = *first;
-    NodeT* next_node; // Temporärer Zeiger, um den nächsten Knoten zu speichern, bevor der aktuelle freigegeben wird.
-    
+    NodeT* next_node;
+
     printf("\nFreeing memory for the list...\n");
-    
+
     while (current != NULL) {
-        next_node = current->next; // 1. Speichere den Zeiger auf den nächsten Knoten.
-        free(current);             // 2. Gib den Speicher des aktuellen Knotens frei.
-        current = next_node;       // 3. Gehe zum nächsten Knoten.
+        next_node = current->next;
+        free(current);
+        current = next_node;
     }
-    
-    // Setze die Kopf- und Endzeiger auf NULL, um die Liste offiziell zu leeren.
+
     *first = NULL;
     *last = NULL;
     printf("List memory successfully freed.\n");
 }
 
+void print_list(NodeT* first) {
+    NodeT* p = first;
+    while (p != NULL) {
+        printf("%d -> ", p->key);
+        p = p->next;
+    }
+    printf("NULL\n");
+}
+
 int main() {
     NodeT *first=NULL, *last=NULL;
     printf("--- Start Operations ---\n");
-    
+
     // 1. Inserati ca prim element, pe rand, cheile 4 si 1
     insert_first(&first, &last, 4);
     printf("After insert_first(4): ");
-    printf(first);
-    
+    print_list(first);
+
     insert_first(&first, &last, 1);
     printf("After insert_first(1): ");
-    printf(first);
-    
+    print_list(first);
+
     // 2. Inserati cheia 3 ca ultim element
     insert_last(&first, &last, 3);
     printf("After insert_last(3): ");
-    printf(first);
+    print_list(first);
 
     // 3. Cautati cheia 2
     if (search(first, 2) != NULL) {
@@ -169,17 +177,14 @@ int main() {
     // 5. Inserati cheia 22 dupa cheia 4
     insert_after_key(&first, &last, 4, 22);
     printf("After insert_after_key(4, 22): ");
-    printf(first);
-
+    print_list(first);
     // 6. Inserati cheia 25 dupa cheia 3
     insert_after_key(&first, &last, 3, 25);
     printf("After insert_after_key(3, 25): ");
-    printf(first);
-    
+    print_list(first);
     // 7. Afisati pe ecran continutul listei
     printf("\n--- Final List Content ---\n");
-    printf(first);
-
+    print_list(first);
     destroy_list(&first, &last);
     return 0;
 }
